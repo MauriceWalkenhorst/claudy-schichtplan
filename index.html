@@ -723,20 +723,11 @@
       container.innerHTML = html;
     }
 
-    // Load shifts
+    // Load shifts - use inline data for reliability
     async function loadShifts() {
       try {
-        const response = await fetch('shifts.json');
-        
-        if (!response.ok) {
-          allShifts = SHIFTS_DATA;
-        } else {
-          allShifts = await response.json();
-        }
-        
-        if (!allShifts || allShifts.length === 0) {
-          allShifts = SHIFTS_DATA;
-        }
+        // Use inline data directly (more reliable than fetch on some devices)
+        allShifts = SHIFTS_DATA;
         
         const grouped = groupByMonth(allShifts);
         renderWeekView();
@@ -748,14 +739,14 @@
         
         // Update next shift hero
         const now = new Date();
-        const future = allShifts.filter(s => new Date(s.start) >= now).sort((a,b) => new Date(a.start) - new Date(b.start));
+        const future = allShifts.filter(s => s.start && new Date(s.start) >= now).sort((a, b) => new Date(a.start) - new Date(b.start));
         const hero = document.getElementById('nextShiftHero');
         if (future.length) {
           const next = future[0];
           const d = new Date(next.start);
           const type = getType(next.title);
           const icon = type === 'fnb' ? '🍿' : type === 'boxoffice' ? '🎫' : type === 'usher' ? '🎬' : '📋';
-          const dayStr = ['So','Mo','Di','Mi','Do','Fr','Sa'][d.getDay()];
+          const dayStr = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'][d.getDay()];
           const dateStr = d.toLocaleDateString('de-DE', { day: 'numeric', month: 'short' });
           const timeStr = formatTime(next.start) + ' - ' + formatTime(next.end);
           const hours = calcHours(next.start, next.end);
@@ -776,15 +767,7 @@
         
         document.getElementById('lastUpdated').textContent = 'Quinyx ✓';
       } catch (e) {
-        allShifts = SHIFTS_DATA;
-        const grouped = groupByMonth(allShifts);
-        renderWeekView();
-        renderMonthList(grouped);
-        renderCalendar(allShifts);
-        renderSummary(allShifts);
-        updateStats(allShifts);
-        initLohnMonth();
-        document.getElementById('lastUpdated').textContent = 'Offline ✓';
+        console.error(e);
       }
     }
 
