@@ -565,10 +565,6 @@
     // Inline shifts data as fallback
     const SHIFTS_DATA = [{"start": "2026-01-15T16:30:00", "end": "2026-01-15T21:00:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.02 F&B", "description": "q: 01.02 F&B"}, {"start": "2026-01-16T16:30:00", "end": "2026-01-16T21:00:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.11 Navigator", "description": "q: 01.11 Navigator"}, {"start": "2026-01-17T16:30:00", "end": "2026-01-17T21:00:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.02 F&B", "description": "q: 01.02 F&B"}, {"start": "2026-01-19T16:00:00", "end": "2026-01-19T21:30:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.04 Kinokasse (Boxoffice)", "description": "q: 01.04 Kinokasse (Boxoffice)"}, {"start": "2026-01-23T16:00:00", "end": "2026-01-23T23:30:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: [*] 01.03 Platzanweiser (Usher)", "description": "q: [*] 01.03 Platzanweiser (Usher)"}, {"start": "2026-01-25T19:00:00", "end": "2026-01-25T23:00:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: [*] 01.03 Platzanweiser (Usher)", "description": "q: [*] 01.03 Platzanweiser (Usher)"}, {"start": "2026-01-28T16:00:00", "end": "2026-01-28T23:45:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.04 Kinokasse (Boxoffice)", "description": "q: 01.04 Kinokasse (Boxoffice)"}, {"start": "2026-01-30T15:30:00", "end": "2026-01-30T21:30:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.03 Platzanweiser (Usher)", "description": "q: 01.03 Platzanweiser (Usher)"}, {"start": "2026-02-01T16:00:00", "end": "2026-02-01T23:45:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.04 Kinokasse (Boxoffice)", "description": "q: 01.04 Kinokasse (Boxoffice)"}, {"start": "2026-02-04T16:00:00", "end": "2026-02-04T23:45:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.04 Kinokasse (Boxoffice)", "description": "q: 01.04 Kinokasse (Boxoffice)"}, {"start": "2026-02-06T16:00:00", "end": "2026-02-06T23:45:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.04 Kinokasse (Boxoffice)", "description": "q: 01.04 Kinokasse (Boxoffice)"}, {"start": "2026-02-07T19:00:00", "end": "2026-02-08T00:30:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.02 F&B", "description": "q: 01.02 F&B"}, {"start": "2026-02-08T16:00:00", "end": "2026-02-08T23:45:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.04 Kinokasse (Boxoffice)", "description": "q: 01.04 Kinokasse (Boxoffice)"}, {"start": "2026-02-13T15:30:00", "end": "2026-02-13T21:00:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.03 Platzanweiser (Usher)", "description": "q: 01.03 Platzanweiser (Usher)"}, {"start": "2026-02-15T16:00:00", "end": "2026-02-15T23:45:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: 01.04 Kinokasse (Boxoffice)", "description": "q: 01.04 Kinokasse (Boxoffice)"}, {"start": "2026-02-16T19:00:00", "end": "2026-02-17T00:00:00", "location": "12: UCI Ruhr Park (RP)", "title": "q: [*] 01.03 Platzanweiser (Usher)", "description": "q: [*] 01.03 Platzanweiser (Usher)"}];
     
-    // Debug: show if JS is running
-    document.getElementById('lastUpdated').textContent = 'JS loaded...';
-    console.log('JS starting...');
-    
     let allShifts = [];
     let currentView = 'week';
     let weekOffset = 0;
@@ -729,24 +725,17 @@
 
     // Load shifts
     async function loadShifts() {
-      document.getElementById('lastUpdated').textContent = 'Fetching shifts...';
-      
       try {
-        console.log('Fetching shifts.json...');
         const response = await fetch('shifts.json');
-        console.log('Response:', response.status, response.ok);
         
         if (!response.ok) {
-          console.log('Using inline data fallback');
           allShifts = SHIFTS_DATA;
         } else {
           allShifts = await response.json();
-          console.log('Loaded shifts:', allShifts.length);
         }
         
         if (!allShifts || allShifts.length === 0) {
-          document.getElementById('weekGrid').innerHTML = '<div class="empty-state">Keine Schichten</div>';
-          return;
+          allShifts = SHIFTS_DATA;
         }
         
         const grouped = groupByMonth(allShifts);
@@ -756,10 +745,46 @@
         renderSummary(allShifts);
         updateStats(allShifts);
         initLohnMonth();
+        
+        // Update next shift hero
+        const now = new Date();
+        const future = allShifts.filter(s => new Date(s.start) >= now).sort((a,b) => new Date(a.start) - new Date(b.start));
+        const hero = document.getElementById('nextShiftHero');
+        if (future.length) {
+          const next = future[0];
+          const d = new Date(next.start);
+          const type = getType(next.title);
+          const icon = type === 'fnb' ? '🍿' : type === 'boxoffice' ? '🎫' : type === 'usher' ? '🎬' : '📋';
+          const dayStr = ['So','Mo','Di','Mi','Do','Fr','Sa'][d.getDay()];
+          const dateStr = d.toLocaleDateString('de-DE', { day: 'numeric', month: 'short' });
+          const timeStr = formatTime(next.start) + ' - ' + formatTime(next.end);
+          const hours = calcHours(next.start, next.end);
+          
+          document.getElementById('heroShiftTitle').textContent = next.title.replace('q: ', '').replace('[*]', '🔄');
+          document.getElementById('heroShiftDate').textContent = dayStr + ', ' + dateStr;
+          document.getElementById('heroShiftTime').textContent = timeStr;
+          document.getElementById('heroShiftHours').textContent = hours + 'h';
+          document.getElementById('heroShiftIcon').textContent = icon;
+          
+          const routeUrl = 'https://www.google.com/maps/dir/?api=1&destination=UCI+Ruhr+Park+Bochum';
+          document.getElementById('heroRouteBtn').href = routeUrl;
+          
+          hero.classList.add('show');
+        } else {
+          hero.classList.remove('show');
+        }
+        
         document.getElementById('lastUpdated').textContent = 'Quinyx ✓';
       } catch (e) {
-        console.error(e);
-        document.getElementById('weekGrid').innerHTML = '<div class="empty-state">Fehler beim Laden</div>';
+        allShifts = SHIFTS_DATA;
+        const grouped = groupByMonth(allShifts);
+        renderWeekView();
+        renderMonthList(grouped);
+        renderCalendar(allShifts);
+        renderSummary(allShifts);
+        updateStats(allShifts);
+        initLohnMonth();
+        document.getElementById('lastUpdated').textContent = 'Offline ✓';
       }
     }
 
