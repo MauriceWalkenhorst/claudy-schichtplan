@@ -499,20 +499,17 @@
     </div>
 
     <!-- List View -->
-    <div id="listView">
-      <!-- Week View -->
-      <div id="weekView">
-        <div class="week-header">
-          <button class="btn" onclick="changeWeek(-1)">←</button>
-          <span id="weekLabel" class="week-label"></span>
-          <button class="btn" onclick="changeWeek(1)">→</button>
-        </div>
-        <div class="week-grid" id="weekGrid"></div>
+    <div id="weekView">
+      <div class="week-header">
+        <button class="btn" onclick="changeWeek(-1)">←</button>
+        <span id="weekLabel" class="week-label"></span>
+        <button class="btn" onclick="changeWeek(1)">→</button>
       </div>
-      
-      <!-- Month List -->
-      <div id="monthList"></div>
+      <div class="week-grid" id="weekGrid"></div>
     </div>
+    
+    <!-- Month List (for Monat tab) -->
+    <div id="monthList"></div>
 
     <!-- Calendar View -->
     <div id="calendarView" class="hidden">
