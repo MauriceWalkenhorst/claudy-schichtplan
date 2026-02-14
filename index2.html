@@ -1016,7 +1016,9 @@
     // Init
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
+    console.log('Starting loadShifts...');
     loadShifts();
+    console.log('loadShifts called');
   </script>
 </body>
 </html>
