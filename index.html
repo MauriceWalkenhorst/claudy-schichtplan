@@ -562,6 +562,10 @@
   </div>
 
   <script>
+    // Debug: show if JS is running
+    document.getElementById('lastUpdated').textContent = 'JS loaded...';
+    console.log('JS starting...');
+    
     let allShifts = [];
     let currentView = 'week';
     let weekOffset = 0;
