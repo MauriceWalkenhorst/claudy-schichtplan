@@ -973,7 +973,7 @@
     function switchView(view) {
       currentView = view;
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      event.target.classList.add('active');
+      document.querySelector('.tab[onclick*="' + view + '"]')?.classList.add('active');
       
       // Show/hide views
       document.getElementById('weekView').classList.toggle('hidden', view !== 'week');
