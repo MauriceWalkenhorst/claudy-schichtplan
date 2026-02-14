@@ -932,7 +932,9 @@
 
     function updateStats(shifts) {
       console.log('updateStats called with', shifts?.length, 'shifts');
+      console.log('Current time:', new Date().toISOString());
       if (!shifts || shifts.length === 0) {
+        console.log('No shifts, setting defaults');
         document.getElementById('totalShifts').textContent = '0';
         document.getElementById('totalHours').textContent = '0h';
         document.getElementById('estEarnings').textContent = '€0';
