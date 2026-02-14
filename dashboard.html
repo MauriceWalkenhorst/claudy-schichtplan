@@ -69,6 +69,14 @@
         <span class="stat-label">Output Tokens</span>
         <span class="stat-value" id="output">-</span>
       </div>
+      <div class="stat">
+        <span class="stat-label">Brave Suchen</span>
+        <span class="stat-value" id="searches">-</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Bilder</span>
+        <span class="stat-value" id="images">-</span>
+      </div>
     </div>
     
     <button class="btn" onclick="loadStats()">🔄 Aktualisieren</button>
@@ -88,6 +96,8 @@
         document.getElementById('total').textContent = data.totalCost.toFixed(2) + ' $';
         document.getElementById('input').textContent = (data.totalInputTokens / 1000).toFixed(1) + 'k';
         document.getElementById('output').textContent = (data.totalOutputTokens / 1000).toFixed(1) + 'k';
+        document.getElementById('searches').textContent = data.braveSearches || 0;
+        document.getElementById('images').textContent = data.imagesGenerated || 0;
         document.getElementById('updated').textContent = 'Stand: ' + new Date(data.lastUpdate).toLocaleString('de-DE');
       } catch(e) {
         document.getElementById('today').textContent = 'Fehler';

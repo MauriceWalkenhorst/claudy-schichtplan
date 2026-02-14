@@ -2,14 +2,26 @@
   "totalInputTokens": 450000,
   "totalOutputTokens": 85000,
   "lastUpdate": "2026-02-14T13:55:00Z",
-  "costToday": 0.25,
-  "totalCost": 8.30,
+  "costToday": 0.45,
+  "totalCost": 8.50,
+  "braveSearches": 45,
+  "imagesGenerated": 3,
   "models": [
     {
       "name": "MiniMax M2.5",
       "inputTokens": 450000,
       "outputTokens": 85000,
       "cost": 0.25
+    },
+    {
+      "name": "Brave Search",
+      "searches": 45,
+      "cost": 0.18
+    },
+    {
+      "name": "Gemini Images",
+      "images": 3,
+      "cost": 0.06
     }
   ]
 }
