@@ -722,8 +722,13 @@
 
     // Load shifts
     async function loadShifts() {
+      // Show loading state
+      document.getElementById('weekGrid').innerHTML = '<div class="empty-state">Lädt...</div>';
+      
       try {
         const response = await fetch('shifts.json');
+        if (!response.ok) throw new Error('Failed to load shifts');
+        
         allShifts = await response.json();
         
         const grouped = groupByMonth(allShifts);
@@ -735,7 +740,8 @@
         initLohnMonth();
         document.getElementById('lastUpdated').textContent = 'Quinyx ✓';
       } catch (e) {
-        document.getElementById('weekGrid').innerHTML = '<div class="empty-state">Fehler</div>';
+        console.error(e);
+        document.getElementById('weekGrid').innerHTML = '<div class="empty-state">Fehler beim Laden</div>';
       }
     }
 
