@@ -1,15 +1,15 @@
 {
-  "totalInputTokens": 211143,
-  "totalOutputTokens": 34614,
-  "lastUpdate": "2026-02-14T10:00:00Z",
-  "costToday": 5.24,
-  "totalCost": 8.04,
+  "totalInputTokens": 260000,
+  "totalOutputTokens": 38000,
+  "lastUpdate": "2026-02-14T13:50:00Z",
+  "costToday": 0.12,
+  "totalCost": 8.16,
   "models": [
     {
       "name": "MiniMax M2.5",
-      "inputTokens": 211143,
-      "outputTokens": 34614,
-      "cost": 5.24
+      "inputTokens": 260000,
+      "outputTokens": 38000,
+      "cost": 0.12
     }
   ]
 }
