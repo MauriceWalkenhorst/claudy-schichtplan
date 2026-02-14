@@ -1,8 +1,8 @@
 {
   "totalInputTokens": 450000,
   "totalOutputTokens": 85000,
-  "lastUpdate": "2026-02-14T14:00:00Z",
-  "costToday": 0.011,
+  "lastUpdate": "2026-02-14T15:00:00Z",
+  "costToday": 0.016,
   "totalCost": 8.50,
   "braveSearches": 45,
   "imagesGenerated": 3,
@@ -16,7 +16,7 @@
     {
       "name": "Brave Search",
       "searches": 45,
-      "cost": 0.18
+      "cost": 0.23
     },
     {
       "name": "Gemini Images",
