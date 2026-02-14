@@ -931,10 +931,7 @@
     }
 
     function updateStats(shifts) {
-      console.log('updateStats called with', shifts?.length, 'shifts');
-      console.log('Current time:', new Date().toISOString());
       if (!shifts || shifts.length === 0) {
-        console.log('No shifts, setting defaults');
         document.getElementById('totalShifts').textContent = '0';
         document.getElementById('totalHours').textContent = '0h';
         document.getElementById('estEarnings').textContent = '€0';
@@ -942,28 +939,33 @@
       }
       
       const now = new Date();
-      const currentMonthKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+      const currentMonth = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
       const monthName = now.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
       
-      // Only current month
-      const monthShifts = shifts.filter(s => s.start.startsWith(currentMonthKey));
-      const monthHours = monthShifts.reduce((s, x) => s + parseFloat(calcHours(x.start, x.end)), 0);
-      
-      // Total (all)
-      const totalHours = shifts.reduce((s, x) => s + parseFloat(calcHours(x.start, x.end)), 0);
+      // Filter current month
+      const monthShifts = shifts.filter(s => s.start && s.start.startsWith(currentMonth));
+      let monthHours = 0;
+      monthShifts.forEach(s => {
+        const start = new Date(s.start);
+        const end = new Date(s.end);
+        monthHours += (end - start) / 36e5;
+      });
       
       document.getElementById('totalShifts').textContent = monthShifts.length;
       document.getElementById('totalHours').textContent = monthHours.toFixed(1) + 'h';
-      document.getElementById('estEarnings').textContent = '€' + (monthHours * 12.5).toFixed(0);
+      document.getElementById('estEarnings').textContent = '€' + Math.round(monthHours * 12.5);
       
-      // Update header to show current month
-      document.querySelector('.logo h1').innerHTML = `Claudy <span>Schichtplan</span> - ${monthName}`;
+      // Update header
+      document.querySelector('.logo h1').innerHTML = 'Claudy <span>Schichtplan</span> - ' + monthName;
       
-      // Next shift (future only)
-      const future = shifts.filter(s => new Date(s.start) >= now).sort((a,b) => new Date(a.start) - new Date(b.start));
+      // Next shift
+      const future = shifts.filter(s => s.start && new Date(s.start) >= now).sort((a, b) => new Date(a.start) - new Date(b.start));
       if (future.length) {
         const d = new Date(future[0].start);
-        document.getElementById('nextShift').textContent = `${['So','Mo','Di','Mi','Do','Fr','Sa'][d.getDay()]}, ${d.getDate()}.`;
+        const days = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+        document.getElementById('nextShift').textContent = days[d.getDay()] + ', ' + d.getDate() + '.';
+      } else {
+        document.getElementById('nextShift').textContent = '-';
       }
     }
 
