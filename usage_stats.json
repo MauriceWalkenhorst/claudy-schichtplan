@@ -1,9 +1,9 @@
 {
   "totalInputTokens": 492434,
   "totalOutputTokens": 98692,
-  "lastUpdate": "2026-02-14T22:00:00Z",
-  "costToday": 0.55373887,
-  "totalCost": 9.08373887,
+  "lastUpdate": "2026-02-14T23:00:00Z",
+  "costToday": 0.55616,
+  "totalCost": 9.08616,
   "braveSearches": 46,
   "imagesGenerated": 3,
   "models": [
@@ -11,7 +11,7 @@
       "name": "MiniMax M2.5",
       "inputTokens": 492434,
       "outputTokens": 98692,
-      "cost": 0.27
+      "cost": 0.26616
     },
     {
       "name": "Brave Search",
