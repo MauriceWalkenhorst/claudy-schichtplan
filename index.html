@@ -913,11 +913,15 @@
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       event.target.classList.add('active');
       
+      // Show/hide views
       document.getElementById('weekView').classList.toggle('hidden', view !== 'week');
-      document.getElementById('monthList').classList.toggle('hidden', view === 'calendar' || view === 'summary' || view === 'lohn');
+      document.getElementById('monthList').classList.toggle('hidden', view !== 'week' && view !== 'list');
       document.getElementById('calendarView').classList.toggle('hidden', view !== 'calendar');
       document.getElementById('summaryView').classList.toggle('hidden', view !== 'summary');
       document.getElementById('lohnView').classList.toggle('hidden', view !== 'lohn');
+      
+      // Show week grid only in week view, hide in list view
+      document.getElementById('weekGrid').classList.toggle('hidden', view === 'list');
     }
 
     function getType(title) {
