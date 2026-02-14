@@ -2,7 +2,7 @@
   "name": "Claudy Schichtplan",
   "short_name": "Schichtplan",
   "description": "Mein Schichtplan von Claudy",
-  "start_url": "/claudy_schichtplan.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0b",
   "theme_color": "#3b82f6",
