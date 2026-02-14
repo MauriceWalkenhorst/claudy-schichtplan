@@ -506,10 +506,10 @@
         <button class="btn" onclick="changeWeek(1)">→</button>
       </div>
       <div class="week-grid" id="weekGrid"></div>
+      
+      <!-- Shifts List (shown below week) -->
+      <div id="weekShiftsList"></div>
     </div>
-    
-    <!-- Month List (for Monat tab) -->
-    <div id="monthList"></div>
 
     <!-- Calendar View -->
     <div id="calendarView" class="hidden">
@@ -650,6 +650,32 @@
       });
       
       container.innerHTML = html;
+      
+      // Render week shifts list below
+      const weekShiftsList = [];
+      days.forEach(d => {
+        const dateStr = d.toISOString().slice(0, 10);
+        allShifts.filter(s => s.start.startsWith(dateStr)).forEach(s => weekShiftsList.push(s));
+      });
+      
+      if (weekShiftsList.length > 0) {
+        let listHtml = '<div class="month-group"><div class="month-header"><span class="month-title">Diese Woche</span><span class="month-hours">' + weekHours.toFixed(1) + 'h</span></div><div class="shifts-list">';
+        
+        weekShiftsList.sort((a,b) => new Date(a.start) - new Date(b.start)).forEach(s => {
+          const type = getType(s.title);
+          const badge = getBadge(s.title);
+          const date = new Date(s.start);
+          const day = ['So','Mo','Di','Mi','Do','Fr','Sa'][date.getDay()];
+          const hours = calcHours(s.start, s.end);
+          
+          listHtml += '<div class="shift-card ' + type + '"><div class="shift-date"><div class="shift-day">' + day + '</div><div class="shift-date-num">' + date.getDate() + '</div></div><div class="shift-info"><div class="shift-title">' + s.title.replace('q: ','').replace('[*]','🔄') + '</div><div class="shift-time">' + formatTime(s.start) + ' - ' + formatTime(s.end) + ' (' + hours + 'h)</div></div><span class="shift-badge ' + badge + '">' + getBadgeText(s.title) + '</span></div>';
+        });
+        
+        listHtml += '</div></div>';
+        document.getElementById('weekShiftsList').innerHTML = listHtml;
+      } else {
+        document.getElementById('weekShiftsList').innerHTML = '';
+      }
     }
 
     function changeWeek(delta) {
@@ -888,7 +914,7 @@
       event.target.classList.add('active');
       
       document.getElementById('weekView').classList.toggle('hidden', view !== 'week');
-      document.getElementById('monthList').classList.toggle('hidden', view !== 'list');
+      document.getElementById('monthList').classList.toggle('hidden', view === 'calendar' || view === 'summary' || view === 'lohn');
       document.getElementById('calendarView').classList.toggle('hidden', view !== 'calendar');
       document.getElementById('summaryView').classList.toggle('hidden', view !== 'summary');
       document.getElementById('lohnView').classList.toggle('hidden', view !== 'lohn');
