@@ -78,8 +78,10 @@
 
   <script>
     async function loadStats() {
+      document.getElementById('today').textContent = 'Lädt...';
       try {
-        const response = await fetch('https://raw.githubusercontent.com/MauriceWalkenhorst/claudy-schichtplan/main/usage_stats.json');
+        const response = await fetch('https://raw.githubusercontent.com/MauriceWalkenhorst/claudy-schichtplan/main/usage_stats.json', {cache: 'no-cache'});
+        if (!response.ok) throw new Error('API Error');
         const data = await response.json();
         
         document.getElementById('today').textContent = data.costToday.toFixed(2) + ' $';
