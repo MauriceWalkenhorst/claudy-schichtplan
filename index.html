@@ -726,14 +726,25 @@
 
     // Load shifts
     async function loadShifts() {
-      // Show loading state
-      document.getElementById('weekGrid').innerHTML = '<div class="empty-state">Lädt...</div>';
+      document.getElementById('lastUpdated').textContent = 'Fetching shifts...';
       
       try {
+        console.log('Fetching shifts.json...');
         const response = await fetch('shifts.json');
-        if (!response.ok) throw new Error('Failed to load shifts');
+        console.log('Response:', response.status, response.ok);
+        
+        if (!response.ok) {
+          document.getElementById('lastUpdated').textContent = 'Error: ' + response.status;
+          return;
+        }
         
         allShifts = await response.json();
+        console.log('Loaded shifts:', allShifts.length);
+        
+        if (allShifts.length === 0) {
+          document.getElementById('weekGrid').innerHTML = '<div class="empty-state">Keine Schichten</div>';
+          return;
+        }
         
         const grouped = groupByMonth(allShifts);
         renderWeekView();
