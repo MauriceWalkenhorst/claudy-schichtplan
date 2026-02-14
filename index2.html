@@ -498,7 +498,7 @@
       <button class="tab" onclick="switchView('lohn')">💶 Lohn</button>
     </div>
 
-    <!-- List View -->
+    <!-- Week View -->
     <div id="weekView">
       <div class="week-header">
         <button class="btn" onclick="changeWeek(-1)">←</button>
@@ -509,6 +509,11 @@
       
       <!-- Shifts List (shown below week) -->
       <div id="weekShiftsList"></div>
+    </div>
+
+    <!-- Month List View -->
+    <div id="listView" class="hidden">
+      <div id="monthList"></div>
     </div>
 
     <!-- Calendar View -->
@@ -977,13 +982,10 @@
       
       // Show/hide views
       document.getElementById('weekView').classList.toggle('hidden', view !== 'week');
-      document.getElementById('monthList').classList.toggle('hidden', view !== 'week' && view !== 'list');
+      document.getElementById('listView').classList.toggle('hidden', view !== 'list');
       document.getElementById('calendarView').classList.toggle('hidden', view !== 'calendar');
       document.getElementById('summaryView').classList.toggle('hidden', view !== 'summary');
       document.getElementById('lohnView').classList.toggle('hidden', view !== 'lohn');
-      
-      // Show week grid only in week view, hide in list view
-      document.getElementById('weekGrid').classList.toggle('hidden', view === 'list');
     }
 
     function getType(title) {
