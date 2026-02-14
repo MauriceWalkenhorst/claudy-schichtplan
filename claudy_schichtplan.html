@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claudy | Schichtplan</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#3b82f6">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0b;
+      --bg-secondary: #121214;
+      --bg-card: #18181b;
+      --bg-hover: #1f1f23;
+      --border: #27272a;
+      --text-primary: #fafafa;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      --card-bg: var(--bg-card);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f5f5f5;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-hover: #e5e5e5;
+      --border: #d4d4d4;
+      --text-primary: #171717;
+      --text-secondary: #525252;
+      --text-muted: #a3a3a3;
+      --accent: #2563eb;
+      --accent-light: #3b82f6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .bg-gradient {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 20% 0%, rgba(59, 130, 246, 0.15), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(96, 165, 250, 0.1), transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .logo h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .header-controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .btn:hover { background: var(--bg-hover); border-color: var(--accent); }
+    .btn-primary { background: var(--accent); color: white; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-light); }
+
+    .last-updated {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      width: 100%;
+      text-align: right;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 0.6875rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+
+    .view-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      background: var(--bg-card);
+      padding: 0.25rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      white-space: nowrap;
+    }
+
+    .tab.active { background: var(--accent); color: white; }
+    .tab:not(.active):hover { color: var(--text-primary); }
+
+    /* List View */
+    .month-group { margin-bottom: 1.5rem; }
+    
+    .month-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .month-title { font-size: 0.875rem; font-weight: 600; }
+    .month-hours { font-family: 'JetBrains Mono', monospace; font-size: 0.8125rem; color: var(--accent); font-weight: 600; }
+
+    .shifts-list { display: flex; flex-direction: column; gap: 0.375rem; }
+
+    .shift-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.625rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .shift-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 4px; border-radius: 8px 0 0 8px; background: var(--accent);
+    }
+
+    .shift-card.fnb::before { background: #f59e0b; }
+    .shift-card.boxoffice::before { background: #3b82f6; }
+    .shift-card.usher::before { background: #22c55e; }
+    .shift-card.navigator::before { background: #8b5cf6; }
+    .shift-card.swap::before { background: #ef4444; }
+
+    .shift-card:hover { background: var(--bg-hover); transform: translateX(4px); }
+    .shift-card.past { opacity: 0.5; }
+
+    .shift-date { min-width: 40px; text-align: center; }
+    .shift-day { font-size: 0.625rem; text-transform: uppercase; color: var(--text-muted); }
+    .shift-date-num { font-size: 1.125rem; font-weight: 700; }
+
+    .shift-info { flex: 1; }
+    .shift-title { font-weight: 600; font-size: 0.8125rem; }
+    .shift-time { font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; color: var(--text-secondary); }
+    .shift-desc { font-size: 0.625rem; color: var(--text-muted); margin-top: 0.125rem; }
+
+    /* Week View */
+    .week-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      background: var(--bg-card);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .week-label { font-weight: 600; font-size: 0.9375rem; }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .week-day {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      min-height: 80px;
+      padding: 0.5rem;
+    }
+
+    .week-day.today { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); }
+    .week-day.other-month { opacity: 0.4; }
+
+    .week-day-name { font-size: 0.625rem; color: var(--text-muted); text-transform: uppercase; }
+    .week-day-num { font-size: 1.125rem; font-weight: 700; }
+
+    .week-shift {
+      font-size: 0.5625rem;
+      padding: 0.125rem 0.25rem;
+      border-radius: 4px;
+      margin-top: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .week-shift.fnb { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .week-shift.boxoffice { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+    .week-shift.usher { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .week-shift.navigator { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+
+    .shift-badge {
+      padding: 0.2rem 0.375rem; border-radius: 8px; font-size: 0.5625rem;
+      font-weight: 500; text-transform: uppercase; white-space: nowrap;
+    }
+
+    .badge-fnb { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .badge-boxoffice { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+    .badge-usher { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+    .badge-navigator { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+    .badge-swap { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+
+    /* Calendar View */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.375rem;
+    }
+
+    .calendar-header {
+      text-align: center;
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      padding: 0.5rem;
+      font-weight: 600;
+    }
+
+    .calendar-day {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      min-height: 60px;
+      padding: 0.375rem;
+      font-size: 0.75rem;
+    }
+
+    .calendar-day.other-month { opacity: 0.3; }
+    .calendar-day.today { border-color: var(--accent); }
+
+    .cal-date { font-weight: 600; margin-bottom: 0.25rem; }
+    .cal-shift {
+      font-size: 0.5625rem;
+      padding: 0.125rem 0.25rem;
+      border-radius: 4px;
+      margin-bottom: 0.125rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cal-shift.fnb { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .cal-shift.boxoffice { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+    .cal-shift.usher { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .cal-shift.navigator { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+
+    /* Summary Table */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+      margin-top: 1.5rem;
+    }
+
+    .summary-table th {
+      text-align: left;
+      padding: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+    }
+
+    .summary-table td {
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+    }
+
+    .summary-table tr.past td { opacity: 0.5; }
+    .summary-table .hours { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: 600; }
+
+    /* Lohn Rechner */
+    .lohn-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .lohn-title { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.75rem; }
+
+    .lohn-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .lohn-input-group label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .lohn-input-group input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+
+    .lohn-result {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    .lohn-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .lohn-card-value { font-size: 1.25rem; font-weight: 700; color: var(--success); }
+    .lohn-card-label { font-size: 0.6875rem; color: var(--text-muted); }
+
+    .hidden { display: none !important; }
+
+    .empty-state { text-align: center; padding: 2rem; color: var(--text-muted); }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.8125rem;
+      margin-bottom: 1rem;
+    }
+
+    .back-link:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .lohn-result { grid-template-columns: 1fr; }
+      .view-tabs { overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  
+  <div class="container">
+    <a href="index.html" class="back-link">← Zurück</a>
+
+    <header>
+      <div class="logo">
+        <div class="logo-icon">🦞</div>
+        <h1>Claudy <span>Schichtplan</span></h1>
+      </div>
+      <div class="header-controls">
+        <button class="btn" onclick="toggleTheme()" title="Dark/Light">🌓</button>
+        <button class="btn" onclick="exportPDF()" title="PDF Export">📄</button>
+      </div>
+      <div class="last-updated" id="lastUpdated">Lädt...</div>
+    </header>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-value" id="totalShifts">-</div>
+        <div class="stat-label">Schichten</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="totalHours">-</div>
+        <div class="stat-label">Stunden</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="nextShift">-</div>
+        <div class="stat-label">Nächste</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="estEarnings">-</div>
+        <div class="stat-label">~Einnahmen</div>
+      </div>
+    </div>
+
+    <div class="view-tabs">
+      <button class="tab active" onclick="switchView('week')">📅 Woche</button>
+      <button class="tab" onclick="switchView('list')">📋 Monat</button>
+      <button class="tab" onclick="switchView('calendar')">📆 Kalender</button>
+      <button class="tab" onclick="switchView('summary')">📊 Übersicht</button>
+      <button class="tab" onclick="switchView('lohn')">💶 Lohn</button>
+    </div>
+
+    <!-- List View -->
+    <div id="listView">
+      <!-- Week View -->
+      <div id="weekView">
+        <div class="week-header">
+          <button class="btn" onclick="changeWeek(-1)">←</button>
+          <span id="weekLabel" class="week-label"></span>
+          <button class="btn" onclick="changeWeek(1)">→</button>
+        </div>
+        <div class="week-grid" id="weekGrid"></div>
+      </div>
+      
+      <!-- Month List -->
+      <div id="monthList"></div>
+    </div>
+
+    <!-- Calendar View -->
+    <div id="calendarView" class="hidden">
+      <div class="calendar-header" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.25rem; margin-bottom: 0.5rem;">
+        <div>Mo</div><div>Di</div><div>Mi</div><div>Do</div><div>Fr</div><div>Sa</div><div>So</div>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+
+    <!-- Summary View -->
+    <div id="summaryView" class="hidden">
+      <table class="summary-table">
+        <thead>
+          <tr><th>Monat</th><th>Schichten</th><th>Std</th><th>F&B</th><th>Kasse</th><th>Platz</th><th>Nav</th></tr>
+        </thead>
+        <tbody id="summaryBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Lohn View -->
+    <div id="lohnView" class="hidden">
+      <div class="lohn-section">
+        <div class="lohn-title">💶 Lohn-Rechner</div>
+        <div class="lohn-inputs">
+          <div class="lohn-input-group">
+            <label>Stundenlohn (€)</label>
+            <input type="number" id="hourlyWage" value="12.50" step="0.50" onchange="calculateLohn()">
+          </div>
+          <div class="lohn-input-group">
+            <label>Monat</label>
+            <select id="lohnMonth" onchange="calculateLohn()"></select>
+          </div>
+        </div>
+        <div class="lohn-result">
+          <div class="lohn-card">
+            <div class="lohn-card-value" id="lohnHours">-</div>
+            <div class="lohn-card-label">Stunden</div>
+          </div>
+          <div class="lohn-card">
+            <div class="lohn-card-value" id="lohnBrutto">-</div>
+            <div class="lohn-card-label">Brutto</div>
+          </div>
+          <div class="lohn-card">
+            <div class="lohn-card-value" id="lohnNetto">-</div>
+            <div class="lohn-card-label">~Netto (60%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let allShifts = [];
+    let currentView = 'week';
+    let weekOffset = 0;
+
+    // Theme
+    function toggleTheme() {
+      const html = document.documentElement;
+      if (html.getAttribute('data-theme') === 'light') {
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        html.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Week View Functions
+    function getWeekDays() {
+      const now = new Date();
+      const startOfWeek = new Date(now);
+      // Kino-Woche: Donnerstag bis Mittwoch
+      startOfWeek.setDate(now.getDate() - (now.getDay() + 3) % 7 + (weekOffset * 7));
+      startOfWeek.setHours(0, 0, 0, 0);
+      
+      const days = [];
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(startOfWeek);
+        d.setDate(startOfWeek.getDate() + i);
+        days.push(d);
+      }
+      return days;
+    }
+
+    function renderWeekView() {
+      const days = getWeekDays();
+      const now = new Date();
+      
+      // Update label
+      const start = days[0];
+      const end = days[6];
+      const startStr = start.toLocaleDateString('de-DE', { day: 'numeric', month: 'short' });
+      const endStr = end.toLocaleDateString('de-DE', { day: 'numeric', month: 'short' });
+      
+      // Calculate week hours
+      let weekHours = 0;
+      let weekShifts = 0;
+      days.forEach(d => {
+        const dateStr = d.toISOString().slice(0, 10);
+        const dayShifts = allShifts.filter(s => s.start.startsWith(dateStr));
+        dayShifts.forEach(s => {
+          weekHours += parseFloat(calcHours(s.start, s.end));
+          weekShifts++;
+        });
+      });
+      
+      document.getElementById('weekLabel').innerHTML = `${startStr} - ${endStr} <span style="color:var(--accent)">${weekHours.toFixed(1)}h · ${weekShifts} Schichten</span>`;
+      
+      // Render days
+      const container = document.getElementById('weekGrid');
+      let html = '';
+      
+      const dayNames = ['Do', 'Fr', 'Sa', 'So', 'Mo', 'Di', 'Mi'];
+      
+      days.forEach((d, i) => {
+        const dateStr = d.toISOString().slice(0, 10);
+        const isToday = d.toDateString() === now.toDateString();
+        const isOtherMonth = d.getMonth() !== now.getMonth() && weekOffset !== 0;
+        
+        const dayShifts = allShifts.filter(s => s.start.startsWith(dateStr));
+        
+        html += `<div class="week-day ${isToday ? 'today' : ''} ${isOtherMonth ? 'other-month' : ''}">
+          <div class="week-day-name">${dayNames[i]}</div>
+          <div class="week-day-num">${d.getDate()}</div>`;
+        
+        dayShifts.slice(0, 2).forEach(s => {
+          const type = getType(s.title);
+          const time = new Date(s.start).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+          html += `<div class="week-shift ${type}">${time} ${s.title.replace('q: ', '').substring(0, 12)}</div>`;
+        });
+        
+        if (dayShifts.length > 2) {
+          html += `<div class="week-shift">+${dayShifts.length - 2}</div>`;
+        }
+        
+        html += '</div>';
+      });
+      
+      container.innerHTML = html;
+    }
+
+    function changeWeek(delta) {
+      weekOffset += delta;
+      renderWeekView();
+    }
+
+    // Month List View
+    function renderMonthList(groups) {
+      const container = document.getElementById('monthList');
+      const months = Object.keys(groups).sort((a, b) => b.localeCompare(a));
+      const now = new Date();
+      const curr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+      
+      let html = '';
+      months.forEach(m => {
+        const d = new Date(m + '-01');
+        const name = d.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
+        const isPast = m < curr;
+        
+        html += `<div class="month-group ${isPast?'past':''}">
+          <div class="month-header"><span class="month-title">${name}</span><span class="month-hours">${groups[m].h.toFixed(1)}h</span></div>
+          <div class="shifts-list">`;
+        
+        groups[m].shifts.sort((a,b) => new Date(b.start) - new Date(a.start)).forEach(s => {
+          const type = getType(s.title);
+          const badge = getBadge(s.title);
+          const date = new Date(s.start);
+          const day = ['So','Mo','Di','Mi','Do','Fr','Sa'][date.getDay()];
+          const hours = calcHours(s.start, s.end);
+          const desc = s.description ? `<div class="shift-desc">${s.description.replace(/\n/g, ' ').substring(0,50)}</div>` : '';
+          
+          html += `<div class="shift-card ${type} ${isPast?'past':''}">
+            <div class="shift-date"><div class="shift-day">${day}</div><div class="shift-date-num">${date.getDate()}</div></div>
+            <div class="shift-info"><div class="shift-title">${s.title.replace('q: ','').replace('[*]','🔄')}</div>
+            <div class="shift-time">${formatTime(s.start)} - ${formatTime(s.end)} (${hours}h)</div>${desc}</div>
+            <span class="shift-badge ${badge}">${getBadgeText(s.title)}</span>
+          </div>`;
+        });
+        html += '</div></div>';
+      });
+      container.innerHTML = html;
+    }
+
+    // Load shifts
+    async function loadShifts() {
+      try {
+        const response = await fetch('shifts.json');
+        allShifts = await response.json();
+        
+        const grouped = groupByMonth(allShifts);
+        renderWeekView();
+        renderMonthList(grouped);
+        renderCalendar(allShifts);
+        renderSummary(allShifts);
+        updateStats(allShifts);
+        initLohnMonth();
+        document.getElementById('lastUpdated').textContent = 'Quinyx ✓';
+      } catch (e) {
+        document.getElementById('weekGrid').innerHTML = '<div class="empty-state">Fehler</div>';
+      }
+    }
+
+    function groupByMonth(shifts) {
+      const groups = {};
+      shifts.forEach(s => {
+        const m = new Date(s.start).toISOString().slice(0, 7);
+        if (!groups[m]) groups[m] = { shifts: [], h: 0, f: 0, b: 0, u: 0, n: 0 };
+        groups[m].shifts.push(s);
+        groups[m].h += parseFloat(calcHours(s.start, s.end));
+        if (s.title.includes('F&B')) groups[m].f++;
+        else if (s.title.includes('Box') || s.title.includes('Kasse')) groups[m].b++;
+        else if (s.title.includes('Platz') || s.title.includes('Usher')) groups[m].u++;
+        else if (s.title.includes('Nav')) groups[m].n++;
+      });
+      return groups;
+    }
+
+    function renderList(groups) {
+      const container = document.getElementById('shiftsList');
+      // Sort months - future first, then past
+      const now = new Date();
+      const currentMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+      const months = Object.keys(groups).sort((a, b) => {
+        if (a >= currentMonth && b < currentMonth) return -1;
+        if (a < currentMonth && b >= currentMonth) return 1;
+        return b.localeCompare(a); // newest first within each group
+      });
+      const curr = currentMonth;
+      
+      let html = '';
+      months.forEach(m => {
+        const d = new Date(m + '-01');
+        const name = d.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
+        const isPast = m < curr;
+        
+        html += `<div class="month-group ${isPast?'past':''}">
+          <div class="month-header"><span class="month-title">${name}</span><span class="month-hours">${groups[m].h.toFixed(1)}h</span></div>
+          <div class="shifts-list">`;
+        
+        groups[m].shifts.sort((a,b) => new Date(b.start) - new Date(a.start)).forEach(s => {
+          const type = getType(s.title);
+          const badge = getBadge(s.title);
+          const date = new Date(s.start);
+          const day = ['So','Mo','Di','Mi','Do','Fr','Sa'][date.getDay()];
+          const hours = calcHours(s.start, s.end);
+          const desc = s.description ? `<div class="shift-desc">${s.description.replace(/\n/g, ' ').substring(0,50)}</div>` : '';
+          
+          html += `<div class="shift-card ${type} ${isPast?'past':''}">
+            <div class="shift-date"><div class="shift-day">${day}</div><div class="shift-date-num">${date.getDate()}</div></div>
+            <div class="shift-info"><div class="shift-title">${s.title.replace('q: ','').replace('[*]','🔄')}</div>
+            <div class="shift-time">${formatTime(s.start)} - ${formatTime(s.end)} (${hours}h)</div>${desc}</div>
+            <span class="shift-badge ${badge}">${getBadgeText(s.title)}</span>
+          </div>`;
+        });
+        html += '</div></div>';
+      });
+      container.innerHTML = html;
+    }
+
+    function renderCalendar(shifts) {
+      const container = document.getElementById('calendarGrid');
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      
+      const firstDay = new Date(year, month, 1).getDay() || 7;
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      
+      let html = '';
+      
+      // Previous month days
+      const prevDays = new Date(year, month, 0).getDate();
+      for (let i = firstDay - 1; i > 0; i--) {
+        html += `<div class="calendar-day other-month"><div class="cal-date">${prevDays - i + 1}</div></div>`;
+      }
+      
+      // Current month
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const dayShifts = shifts.filter(s => s.start.startsWith(dateStr));
+        const isToday = d === now.getDate();
+        
+        html += `<div class="calendar-day ${isToday?'today':''}"><div class="cal-date">${d}</div>`;
+        dayShifts.slice(0, 3).forEach(s => {
+          const type = getType(s.title);
+          const time = new Date(s.start).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+          html += `<div class="cal-shift ${type}">${time} ${s.title.replace('q: ','').substring(0,10)}</div>`;
+        });
+        if (dayShifts.length > 3) html += `<div class="cal-shift">+${dayShifts.length-3}</div>`;
+        html += '</div>';
+      }
+      
+      container.innerHTML = html;
+    }
+
+    function renderSummary(shifts) {
+      const grouped = groupByMonth(shifts);
+      const months = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
+      const now = new Date();
+      const curr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+      
+      let html = '';
+      months.forEach(m => {
+        const d = new Date(m + '-01');
+        const name = d.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
+        const g = grouped[m];
+        const isPast = m < curr;
+        
+        html += `<tr class="${isPast?'past':''}">
+          <td>${name}</td><td>${g.shifts.length}</td>
+          <td class="hours">${g.h.toFixed(1)}h</td><td>${g.f}</td><td>${g.b}</td><td>${g.u}</td><td>${g.n}</td>
+        </tr>`;
+      });
+      document.getElementById('summaryBody').innerHTML = html;
+    }
+
+    function initLohnMonth() {
+      const sel = document.getElementById('lohnMonth');
+      const now = new Date();
+      for (let i = 0; i < 6; i++) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const val = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+        const txt = d.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
+        sel.innerHTML += `<option value="${val}">${txt}</option>`;
+      }
+      calculateLohn();
+    }
+
+    function calculateLohn() {
+      const wage = parseFloat(document.getElementById('hourlyWage').value) || 12.5;
+      const month = document.getElementById('lohnMonth').value;
+      
+      const grouped = groupByMonth(allShifts);
+      const mData = grouped[month] || { h: 0 };
+      
+      const hours = mData.h;
+      const brutto = hours * wage;
+      const netto = brutto * 0.6;
+      
+      document.getElementById('lohnHours').textContent = hours.toFixed(1) + 'h';
+      document.getElementById('lohnBrutto').textContent = '€' + brutto.toFixed(2);
+      document.getElementById('lohnNetto').textContent = '€' + netto.toFixed(2);
+    }
+
+    function updateStats(shifts) {
+      const now = new Date();
+      const currentMonthKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+      const monthName = now.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
+      
+      // Only current month
+      const monthShifts = shifts.filter(s => s.start.startsWith(currentMonthKey));
+      const monthHours = monthShifts.reduce((s, x) => s + parseFloat(calcHours(x.start, x.end)), 0);
+      
+      // Total (all)
+      const totalHours = shifts.reduce((s, x) => s + parseFloat(calcHours(x.start, x.end)), 0);
+      
+      document.getElementById('totalShifts').textContent = monthShifts.length;
+      document.getElementById('totalHours').textContent = monthHours.toFixed(1) + 'h';
+      document.getElementById('estEarnings').textContent = '€' + (monthHours * 12.5).toFixed(0);
+      
+      // Update header to show current month
+      document.querySelector('.logo h1').innerHTML = `Claudy <span>Schichtplan</span> - ${monthName}`;
+      
+      // Next shift (future only)
+      const future = shifts.filter(s => new Date(s.start) >= now).sort((a,b) => new Date(a.start) - new Date(b.start));
+      if (future.length) {
+        const d = new Date(future[0].start);
+        document.getElementById('nextShift').textContent = `${['So','Mo','Di','Mi','Do','Fr','Sa'][d.getDay()]}, ${d.getDate()}.`;
+      }
+    }
+
+    function switchView(view) {
+      currentView = view;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      document.getElementById('weekView').classList.toggle('hidden', view !== 'week');
+      document.getElementById('monthList').classList.toggle('hidden', view !== 'list');
+      document.getElementById('calendarView').classList.toggle('hidden', view !== 'calendar');
+      document.getElementById('summaryView').classList.toggle('hidden', view !== 'summary');
+      document.getElementById('lohnView').classList.toggle('hidden', view !== 'lohn');
+    }
+
+    function getType(title) {
+      if (title.includes('F&B')) return 'fnb';
+      if (title.includes('Box') || title.includes('Kasse')) return 'boxoffice';
+      if (title.includes('Platz') || title.includes('Usher')) return 'usher';
+      if (title.includes('Nav')) return 'navigator';
+      return '';
+    }
+
+    function getBadge(title) {
+      if (title.includes('F&B')) return 'badge-fnb';
+      if (title.includes('Box') || title.includes('Kasse')) return 'badge-boxoffice';
+      if (title.includes('Platz') || title.includes('Usher')) return 'badge-usher';
+      if (title.includes('Nav')) return 'badge-navigator';
+      return title.includes('*') ? 'badge-swap' : '';
+    }
+
+    function getBadgeText(title) {
+      if (title.includes('F&B')) return '🍔 F&B';
+      if (title.includes('Box') || title.includes('Kasse')) return '🎫 Kasse';
+      if (title.includes('Platz') || title.includes('Usher')) return '🚪 Platz';
+      if (title.includes('Nav')) return '🧭 Nav';
+      return '📋';
+    }
+
+    function formatTime(str) {
+      return new Date(str).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function calcHours(start, end) {
+      return ((new Date(end) - new Date(start)) / 36e5).toFixed(1);
+    }
+
+    function exportPDF() {
+      window.print();
+    }
+
+    // Init
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    loadShifts();
+  </script>
+</body>
+</html>
