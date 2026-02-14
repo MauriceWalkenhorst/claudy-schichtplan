@@ -726,18 +726,25 @@
     // Load shifts - use inline data for reliability
     async function loadShifts() {
       try {
-        // Use inline data directly (more reliable than fetch on some devices)
+        console.log('loadShifts started');
+        
+        // Use inline data directly
         allShifts = SHIFTS_DATA;
+        console.log('Shifts loaded:', allShifts.length);
         
         const grouped = groupByMonth(allShifts);
         renderWeekView();
         renderMonthList(grouped);
         renderCalendar(allShifts);
         renderSummary(allShifts);
+        
+        console.log('Calling updateStats...');
         updateStats(allShifts);
+        console.log('updateStats done');
+        
         initLohnMonth();
         
-        // Update next shift hero
+        // ... rest of the function
         const now = new Date();
         const future = allShifts.filter(s => s.start && new Date(s.start) >= now).sort((a, b) => new Date(a.start) - new Date(b.start));
         const hero = document.getElementById('nextShiftHero');
@@ -766,8 +773,10 @@
         }
         
         document.getElementById('lastUpdated').textContent = 'Quinyx ✓';
+        console.log('Done!');
       } catch (e) {
-        console.error(e);
+        console.error('loadShifts error:', e);
+        document.getElementById('lastUpdated').textContent = 'Fehler';
       }
     }
 
