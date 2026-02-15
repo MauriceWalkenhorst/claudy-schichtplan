@@ -1,9 +1,9 @@
 {
   "totalInputTokens": 492434,
   "totalOutputTokens": 98692,
-  "lastUpdate": "2026-02-15T00:00:00Z",
-  "costToday": 0.28116,
-  "totalCost": 9.36732,
+  "lastUpdate": "2026-02-15T01:00:00Z",
+  "costToday": 0.57116,
+  "totalCost": 9.65732,
   "braveSearches": 49,
   "imagesGenerated": 3,
   "models": [
