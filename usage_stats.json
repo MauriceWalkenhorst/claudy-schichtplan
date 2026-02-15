@@ -1,17 +1,17 @@
 {
-  "costToday": 270.53,
-  "totalCost": 279.62,
-  "totalInputTokens": 497654,
-  "totalOutputTokens": 100747,
+  "costToday": 270.56,
+  "totalCost": 279.65,
+  "totalInputTokens": 498654,
+  "totalOutputTokens": 100947,
   "braveSearches": 50,
   "imagesGenerated": 4,
-  "lastUpdate": "2026-02-15T10:00:00Z",
+  "lastUpdate": "2026-02-15T11:00:00Z",
   "models": [
     {
       "name": "MiniMax M2.5",
-      "inputTokens": 497654,
-      "outputTokens": 100747,
-      "cost": 270.20
+      "inputTokens": 498654,
+      "outputTokens": 100947,
+      "cost": 270.23
     },
     {
       "name": "Brave Search",
