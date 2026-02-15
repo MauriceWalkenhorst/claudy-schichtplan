@@ -1,27 +1,27 @@
 {
-  "costToday": 1.822,
-  "totalCost": 10.912,
-  "totalInputTokens": 495654,
-  "totalOutputTokens": 99247,
-  "braveSearches": 49,
-  "imagesGenerated": 3,
-  "lastUpdate": "2026-02-15T07:00:46Z",
+  "costToday": 1.847,
+  "totalCost": 10.937,
+  "totalInputTokens": 497654,
+  "totalOutputTokens": 100747,
+  "braveSearches": 50,
+  "imagesGenerated": 4,
+  "lastUpdate": "2026-02-15T08:00:00Z",
   "models": [
     {
       "name": "MiniMax M2.5",
-      "inputTokens": 495654,
-      "outputTokens": 99247,
-      "cost": 1.512
+      "inputTokens": 497654,
+      "outputTokens": 100747,
+      "cost": 1.537
     },
     {
       "name": "Brave Search",
-      "searches": 49,
-      "cost": 0.245
+      "searches": 50,
+      "cost": 0.25
     },
     {
       "name": "Gemini Images",
-      "images": 3,
-      "cost": 0.06
+      "images": 4,
+      "cost": 0.08
     }
   ]
 }
