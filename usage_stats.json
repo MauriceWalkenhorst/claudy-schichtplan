@@ -1,16 +1,16 @@
 {
   "costToday": 0.61,
   "totalCost": 9.69,
-  "totalInputTokens": 542654,
-  "totalOutputTokens": 101236,
+  "totalInputTokens": 542965,
+  "totalOutputTokens": 101345,
   "braveSearches": 50,
   "imagesGenerated": 4,
-  "lastUpdate": "2026-02-15T14:00:00Z",
+  "lastUpdate": "2026-02-15T15:00:00Z",
   "models": [
     {
       "name": "MiniMax M2.5",
-      "inputTokens": 542654,
-      "outputTokens": 101236,
+      "inputTokens": 542965,
+      "outputTokens": 101345,
       "cost": 0.28,
       "inputCostPer1k": 0.0003,
       "outputCostPer1k": 0.0012
