@@ -1,17 +1,17 @@
 {
-  "costToday": 0.00593,
-  "totalCost": 10.33756,
-  "totalInputTokens": 553468,
-  "totalOutputTokens": 103263,
+  "costToday": 0.01186,
+  "totalCost": 10.34349,
+  "totalInputTokens": 557468,
+  "totalOutputTokens": 107163,
   "braveSearches": 51,
   "imagesGenerated": 4,
-  "lastUpdate": "10:00Z",
+  "lastUpdate": "11:00Z",
   "models": [
     {
       "name": "MiniMax M2.5",
-      "inputTokens": 553468,
-      "outputTokens": 103263,
-      "cost": 0.29028000000000004,
+      "inputTokens": 557468,
+      "outputTokens": 107163,
+      "cost": 0.296196,
       "inputCostPer1k": 0.0003,
       "outputCostPer1k": 0.0012
     },
@@ -29,6 +29,6 @@
     }
   ],
   "cronSessionTokens": 5900,
-  "cronSessionCost": 0.0059299999999999995,
-  "note": "Cron 10:00 UTC Feb 16 - +3200 Tokens heute. Cost: +"
+  "cronSessionCost": 0.00593,
+  "note": "Cron 11:00 UTC Feb 16 - +7900 Tokens heute. Cost: +$0.00593"
 }
