@@ -1,17 +1,17 @@
 {
-  "costToday": 0,
-  "totalCost": 10.4783932,
-  "totalInputTokens": 699923,
-  "totalOutputTokens": 162983,
+  "costToday": 0.5058,
+  "totalCost": 10.9841932,
+  "totalInputTokens": 700249,
+  "totalOutputTokens": 163323,
   "braveSearches": 51,
   "imagesGenerated": 4,
-  "lastUpdate": "00:00Z",
+  "lastUpdate": "01:00Z",
   "models": [
     {
       "name": "MiniMax M2.5",
-      "inputTokens": 699923,
-      "outputTokens": 162983,
-      "cost": 0.40556,
+      "inputTokens": 700249,
+      "outputTokens": 163323,
+      "cost": 0.91136,
       "inputCostPer1k": 0.0003,
       "outputCostPer1k": 0.0012
     },
@@ -28,7 +28,7 @@
       "costPerImage": 0.02
     }
   ],
-  "mainSessionTokens": 0,
-  "mainSessionCost": 0,
-  "note": "Cron 00:00 UTC Feb 17 - Neuer Tag, costToday resettet auf $0.00"
+  "mainSessionTokens": 666,
+  "mainSessionCost": 0.5058,
+  "note": "Cron 01:00 UTC Feb 17 - Heutige Session (326 in + 340 out) hinzugefügt"
 }
