@@ -1,17 +1,17 @@
 {
-  "costToday": 0.8112,
-  "totalCost": 12.0773,
-  "totalInputTokens": 881498,
-  "totalOutputTokens": 172330,
+  "costToday": 0.8115,
+  "totalCost": 12.0776,
+  "totalInputTokens": 881898,
+  "totalOutputTokens": 172480,
   "braveSearches": 52,
   "imagesGenerated": 4,
-  "lastUpdate": "22:00Z",
+  "lastUpdate": "23:00Z",
   "date": "2026-02-17",
   "breakdown": {
     "miniMax": {
-      "inputTokens": 881498,
-      "outputTokens": 172330,
-      "cost": 0.4712,
+      "inputTokens": 881898,
+      "outputTokens": 172480,
+      "cost": 0.4715,
       "inputCostPer1k": 0.0003,
       "outputCostPer1k": 0.0012
     },
@@ -27,7 +27,7 @@
     }
   },
   "todaySession": {
-    "totalTokens": 66712,
-    "estimatedCost": 0.048
+    "totalTokens": 67262,
+    "estimatedCost": 0.0483
   }
 }
