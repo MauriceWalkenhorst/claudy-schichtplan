@@ -1,17 +1,17 @@
 {
-  "costToday": 0.5152,
-  "totalCost": 10.9912,
-  "totalInputTokens": 726995,
-  "totalOutputTokens": 165417,
+  "costToday": 0.5181,
+  "totalCost": 10.9941,
+  "totalInputTokens": 738878,
+  "totalOutputTokens": 165905,
   "braveSearches": 51,
   "imagesGenerated": 4,
-  "lastUpdate": "07:00Z",
+  "lastUpdate": "08:00Z",
   "date": "2026-02-17",
   "breakdown": {
     "miniMax": {
-      "inputTokens": 726995,
-      "outputTokens": 165417,
-      "cost": 0.4202,
+      "inputTokens": 738878,
+      "outputTokens": 165905,
+      "cost": 0.4231,
       "inputCostPer1k": 0.0003,
       "outputCostPer1k": 0.0012
     },
