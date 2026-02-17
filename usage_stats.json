@@ -1,11 +1,11 @@
 {
-  "costToday": 0.8050,
-  "totalCost": 11.2661,
+  "costToday": 0.3880,
+  "totalCost": 11.6541,
   "totalInputTokens": 881063,
   "totalOutputTokens": 171784,
   "braveSearches": 52,
   "imagesGenerated": 4,
-  "lastUpdate": "20:00Z",
+  "lastUpdate": "21:00Z",
   "date": "2026-02-17",
   "breakdown": {
     "miniMax": {
@@ -25,5 +25,9 @@
       "cost": 0.08,
       "costPerImage": 0.02
     }
+  },
+  "todaySession": {
+    "totalTokens": 66712,
+    "estimatedCost": 0.048
   }
 }
