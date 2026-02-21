@@ -1,86 +1,93 @@
 [
   {
-    "DTSTART": "20260119T160000",
-    "DTEND": "20260119T213000",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.04 Kinokasse (Boxoffice)"
+    "start": "2026-01-23T16:00:00",
+    "end": "2026-01-23T23:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: [*] 01.03 Platzanweiser (Usher)",
+    "description": "q: [*] 01.03 Platzanweiser (Usher)"
   },
   {
-    "DTSTART": "20260123T160000",
-    "DTEND": "20260123T233000",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: [*] 01.03 Platzanweiser (Usher)"
+    "start": "2026-01-25T19:00:00",
+    "end": "2026-01-25T23:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: [*] 01.03 Platzanweiser (Usher)",
+    "description": "q: [*] 01.03 Platzanweiser (Usher)"
   },
   {
-    "DTSTART": "20260125T190000",
-    "DTEND": "20260125T230000",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: [*] 01.03 Platzanweiser (Usher)"
+    "start": "2026-01-28T16:00:00",
+    "end": "2026-01-28T23:45:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.04 Kinokasse (Boxoffice)",
+    "description": "q: 01.04 Kinokasse (Boxoffice)"
   },
   {
-    "DTSTART": "20260128T160000",
-    "DTEND": "20260128T234500",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.04 Kinokasse (Boxoffice)"
+    "start": "2026-01-30T15:30:00",
+    "end": "2026-01-30T21:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.03 Platzanweiser (Usher)",
+    "description": "q: 01.03 Platzanweiser (Usher)"
   },
   {
-    "DTSTART": "20260130T153000",
-    "DTEND": "20260130T213000",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.03 Platzanweiser (Usher)"
+    "start": "2026-02-01T16:00:00",
+    "end": "2026-02-01T23:45:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.04 Kinokasse (Boxoffice)",
+    "description": "q: 01.04 Kinokasse (Boxoffice)"
   },
   {
-    "DTSTART": "20260201T160000",
-    "DTEND": "20260201T234500",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.04 Kinokasse (Boxoffice)"
+    "start": "2026-02-04T16:00:00",
+    "end": "2026-02-04T23:45:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.04 Kinokasse (Boxoffice)",
+    "description": "q: 01.04 Kinokasse (Boxoffice)"
   },
   {
-    "DTSTART": "20260204T160000",
-    "DTEND": "20260204T234500",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.04 Kinokasse (Boxoffice)"
+    "start": "2026-02-06T16:00:00",
+    "end": "2026-02-06T23:45:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.04 Kinokasse (Boxoffice)",
+    "description": "q: 01.04 Kinokasse (Boxoffice)"
   },
   {
-    "DTSTART": "20260206T160000",
-    "DTEND": "20260206T234500",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.04 Kinokasse (Boxoffice)"
+    "start": "2026-02-07T19:00:00",
+    "end": "2026-02-08T00:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.02 F&B",
+    "description": "q: 01.02 F&B"
   },
   {
-    "DTSTART": "20260207T190000",
-    "DTEND": "20260208T003000",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.02 F&B"
+    "start": "2026-02-08T16:00:00",
+    "end": "2026-02-08T23:45:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.04 Kinokasse (Boxoffice)",
+    "description": "q: 01.04 Kinokasse (Boxoffice)"
   },
   {
-    "DTSTART": "20260208T160000",
-    "DTEND": "20260208T234500",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.04 Kinokasse (Boxoffice)"
+    "start": "2026-02-13T15:30:00",
+    "end": "2026-02-13T21:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.03 Platzanweiser (Usher)",
+    "description": "q: 01.03 Platzanweiser (Usher)"
   },
   {
-    "DTSTART": "20260213T153000",
-    "DTEND": "20260213T210000",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.03 Platzanweiser (Usher)"
+    "start": "2026-02-15T16:00:00",
+    "end": "2026-02-15T23:45:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.04 Kinokasse (Boxoffice)",
+    "description": "q: 01.04 Kinokasse (Boxoffice)"
   },
   {
-    "DTSTART": "20260215T160000",
-    "DTEND": "20260215T234500",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.04 Kinokasse (Boxoffice)"
+    "start": "2026-02-22T10:15:00",
+    "end": "2026-02-22T17:45:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.03 Platzanweiser (Usher)",
+    "description": "q: 01.03 Platzanweiser (Usher)"
   },
   {
-    "DTSTART": "20260222T101500",
-    "DTEND": "20260222T174500",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.03 Platzanweiser (Usher)"
-  },
-  {
-    "DTSTART": "20260223T130000",
-    "DTEND": "20260223T220000",
-    "LOCATION": "12: UCI Ruhr Park (RP)",
-    "SUMMARY": "q: 01.10 Marketing & SV"
+    "start": "2026-02-23T13:00:00",
+    "end": "2026-02-23T22:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.10 Marketing & SV",
+    "description": "q: 01.10 Marketing & SV"
   }
 ]
