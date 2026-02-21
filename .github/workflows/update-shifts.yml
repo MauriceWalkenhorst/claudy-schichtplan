@@ -1,0 +1,36 @@
+name: Update Quinyx Shifts
+
+on:
+  schedule:
+    - cron: '0 6 * * *'   # täglich um 06:00 UTC (07:00 MEZ / 08:00 MESZ)
+  workflow_dispatch:        # manuell auslösbar über GitHub UI
+
+jobs:
+  update-shifts:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch shifts from Quinyx
+        run: node update-shifts.js
+
+      - name: Commit & push if shifts changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add shifts.json
+          if git diff --cached --quiet; then
+            echo "No changes to shifts.json – nothing to commit"
+          else
+            git commit -m "Auto-update shifts $(date -u +%Y-%m-%d)"
+            git push
+          fi

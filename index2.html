@@ -728,28 +728,44 @@
       container.innerHTML = html;
     }
 
-    // Load shifts - use inline data for reliability
+    // Load shifts - fetch from shifts.json, fallback to inline data
     async function loadShifts() {
       try {
         console.log('loadShifts started');
-        
-        // Use inline data directly
-        allShifts = SHIFTS_DATA;
-        console.log('Shifts loaded:', allShifts.length);
-        
+
+        let dataSource = 'inline';
+        try {
+          const resp = await fetch('./shifts.json');
+          if (resp.ok) {
+            const fetched = await resp.json();
+            if (Array.isArray(fetched) && fetched.length > 0) {
+              allShifts = fetched;
+              dataSource = 'quinyx';
+              console.log('Shifts loaded from shifts.json:', allShifts.length);
+            } else {
+              throw new Error('Empty or invalid shifts.json');
+            }
+          } else {
+            throw new Error('shifts.json not available (status ' + resp.status + ')');
+          }
+        } catch (fetchErr) {
+          console.warn('Falling back to inline data:', fetchErr.message);
+          allShifts = SHIFTS_DATA;
+          console.log('Shifts loaded from inline data:', allShifts.length);
+        }
+
         const grouped = groupByMonth(allShifts);
         renderWeekView();
         renderMonthList(grouped);
         renderCalendar(allShifts);
         renderSummary(allShifts);
-        
+
         console.log('Calling updateStats...');
         updateStats(allShifts);
         console.log('updateStats done');
-        
+
         initLohnMonth();
-        
-        // ... rest of the function
+
         const now = new Date();
         const future = allShifts.filter(s => s.start && new Date(s.start) >= now).sort((a, b) => new Date(a.start) - new Date(b.start));
         const hero = document.getElementById('nextShiftHero');
@@ -762,22 +778,27 @@
           const dateStr = d.toLocaleDateString('de-DE', { day: 'numeric', month: 'short' });
           const timeStr = formatTime(next.start) + ' - ' + formatTime(next.end);
           const hours = calcHours(next.start, next.end);
-          
+
           document.getElementById('heroShiftTitle').textContent = next.title.replace('q: ', '').replace('[*]', '🔄');
           document.getElementById('heroShiftDate').textContent = dayStr + ', ' + dateStr;
           document.getElementById('heroShiftTime').textContent = timeStr;
           document.getElementById('heroShiftHours').textContent = hours + 'h';
           document.getElementById('heroShiftIcon').textContent = icon;
-          
+
           const routeUrl = 'https://www.google.com/maps/dir/?api=1&destination=UCI+Ruhr+Park+Bochum';
           document.getElementById('heroRouteBtn').href = routeUrl;
-          
+
           hero.classList.add('show');
         } else {
           hero.classList.remove('show');
         }
-        
-        document.getElementById('lastUpdated').textContent = 'Quinyx ✓';
+
+        if (dataSource === 'quinyx') {
+          const dateStr = new Date().toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+          document.getElementById('lastUpdated').textContent = 'Quinyx ✓ (' + dateStr + ')';
+        } else {
+          document.getElementById('lastUpdated').textContent = 'Offline-Daten';
+        }
         console.log('Done!');
       } catch (e) {
         console.error('loadShifts error:', e);
