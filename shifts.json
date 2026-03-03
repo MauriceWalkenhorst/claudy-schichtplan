@@ -89,5 +89,26 @@
     "location": "12: UCI Ruhr Park (RP)",
     "title": "q: 01.10 Marketing & SV",
     "description": "q: 01.10 Marketing & SV"
+  },
+  {
+    "start": "2026-03-06T19:00:00",
+    "end": "2026-03-07T02:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.03 Platzanweiser (Usher)",
+    "description": "q: 01.03 Platzanweiser (Usher)"
+  },
+  {
+    "start": "2026-03-09T19:00:00",
+    "end": "2026-03-10T00:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.03 Platzanweiser (Usher)",
+    "description": "q: 01.03 Platzanweiser (Usher)"
+  },
+  {
+    "start": "2026-03-10T13:00:00",
+    "end": "2026-03-10T21:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: [*] 01.04 Kinokasse (Boxoffice)",
+    "description": "q: [*] 01.04 Kinokasse (Boxoffice)"
   }
 ]
