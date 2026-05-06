@@ -1,12 +1,5 @@
 [
   {
-    "start": "2026-04-05T16:15:00",
-    "end": "2026-04-05T23:45:00",
-    "location": "12: UCI Ruhr Park (RP)",
-    "title": "q: 01.04 Kinokasse (Boxoffice)",
-    "description": "q: 01.04 Kinokasse (Boxoffice)"
-  },
-  {
     "start": "2026-04-06T13:00:00",
     "end": "2026-04-06T21:00:00",
     "location": "12: UCI Ruhr Park (RP)",
@@ -89,13 +82,6 @@
     "location": "12: UCI Ruhr Park (RP)",
     "title": "q: 01.02 F&B",
     "description": "q: 01.02 F&B"
-  },
-  {
-    "start": "2026-05-11T19:00:00",
-    "end": "2026-05-12T00:00:00",
-    "location": "12: UCI Ruhr Park (RP)",
-    "title": "q: [*] 01.03 Platzanweiser (Usher)",
-    "description": "q: [*] 01.03 Platzanweiser (Usher)"
   },
   {
     "start": "2026-05-13T15:30:00",
