@@ -75,5 +75,33 @@
     "location": "12: UCI Ruhr Park (RP)",
     "title": "q: [*] 01.02 F&B",
     "description": "q: [*] 01.02 F&B"
+  },
+  {
+    "start": "2026-05-29T15:30:00",
+    "end": "2026-05-29T21:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.03 Platzanweiser (Usher)",
+    "description": "q: 01.03 Platzanweiser (Usher)"
+  },
+  {
+    "start": "2026-06-01T15:30:00",
+    "end": "2026-06-01T21:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.03 Platzanweiser (Usher)",
+    "description": "q: 01.03 Platzanweiser (Usher)"
+  },
+  {
+    "start": "2026-06-02T17:00:00",
+    "end": "2026-06-02T22:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.02 F&B",
+    "description": "q: 01.02 F&B"
+  },
+  {
+    "start": "2026-06-03T19:00:00",
+    "end": "2026-06-04T00:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.02 F&B",
+    "description": "q: 01.02 F&B"
   }
 ]
