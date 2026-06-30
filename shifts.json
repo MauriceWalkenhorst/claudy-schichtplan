@@ -110,5 +110,26 @@
     "location": "12: UCI Ruhr Park (RP)",
     "title": "q: 09.2 GBR/KBR",
     "description": "q: 09.2 GBR/KBR"
+  },
+  {
+    "start": "2026-07-02T11:00:00",
+    "end": "2026-07-02T18:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 09.2 GBR/KBR",
+    "description": "q: 09.2 GBR/KBR"
+  },
+  {
+    "start": "2026-07-05T19:00:00",
+    "end": "2026-07-06T00:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 08.1 Buddy",
+    "description": "q: 08.1 Buddy"
+  },
+  {
+    "start": "2026-07-06T15:30:00",
+    "end": "2026-07-06T21:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.02 F&B",
+    "description": "q: 01.02 F&B"
   }
 ]
