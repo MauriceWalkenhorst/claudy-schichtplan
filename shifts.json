@@ -1,12 +1,5 @@
 [
   {
-    "start": "2026-06-13T16:00:00",
-    "end": "2026-06-13T23:45:00",
-    "location": "12: UCI Ruhr Park (RP)",
-    "title": "q: 01.04 Kinokasse (Boxoffice)",
-    "description": "q: 01.04 Kinokasse (Boxoffice)"
-  },
-  {
     "start": "2026-06-15T15:30:00",
     "end": "2026-06-15T21:00:00",
     "location": "12: UCI Ruhr Park (RP)",
@@ -103,5 +96,33 @@
     "location": "12: UCI Ruhr Park (RP)",
     "title": "q: 01.02 F&B",
     "description": "q: 01.02 F&B"
+  },
+  {
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T19:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.02 F&B",
+    "description": "q: 01.02 F&B"
+  },
+  {
+    "start": "2026-07-17T16:30:00",
+    "end": "2026-07-17T21:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.11 Navigator",
+    "description": "q: 01.11 Navigator"
+  },
+  {
+    "start": "2026-07-21T16:00:00",
+    "end": "2026-07-21T21:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.02 F&B",
+    "description": "q: 01.02 F&B"
+  },
+  {
+    "start": "2026-07-22T10:15:00",
+    "end": "2026-07-22T16:15:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.04 Kinokasse (Boxoffice)",
+    "description": "q: 01.04 Kinokasse (Boxoffice)"
   }
 ]
