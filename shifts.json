@@ -117,5 +117,33 @@
     "location": "12: UCI Ruhr Park (RP)",
     "title": "q: 01.03 Platzanweiser (Usher)",
     "description": "q: 01.03 Platzanweiser (Usher)"
+  },
+  {
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T19:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.03 Platzanweiser (Usher)",
+    "description": "q: 01.03 Platzanweiser (Usher)"
+  },
+  {
+    "start": "2026-08-07T17:30:00",
+    "end": "2026-08-07T22:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.10 Marketing & SV",
+    "description": "q: 01.10 Marketing & SV"
+  },
+  {
+    "start": "2026-08-11T12:00:00",
+    "end": "2026-08-11T17:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 09.2 GBR/KBR",
+    "description": "q: 09.2 GBR/KBR"
+  },
+  {
+    "start": "2026-08-12T13:00:00",
+    "end": "2026-08-12T19:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.02 F&B",
+    "description": "q: 01.02 F&B"
   }
 ]
