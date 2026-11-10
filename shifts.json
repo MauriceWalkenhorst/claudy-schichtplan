@@ -1,12 +1,5 @@
 [
   {
-    "start": "2026-10-10T16:30:00",
-    "end": "2026-10-10T21:00:00",
-    "location": "12: UCI Ruhr Park (RP)",
-    "title": "q: [*] 01.11 Navigator",
-    "description": "q: [*] 01.11 Navigator"
-  },
-  {
     "start": "2026-10-11T13:30:00",
     "end": "2026-10-11T18:00:00",
     "location": "12: UCI Ruhr Park (RP)",
@@ -84,8 +77,8 @@
     "description": "q: 01.02 F&B"
   },
   {
-    "start": "2026-11-03T10:00:00",
-    "end": "2026-11-03T14:00:00",
+    "start": "2026-11-03T12:15:00",
+    "end": "2026-11-03T19:00:00",
     "location": "12: UCI Ruhr Park (RP)",
     "title": "q: 09.2 GBR/KBR",
     "description": "q: 09.2 GBR/KBR"
@@ -117,5 +110,40 @@
     "location": "12: UCI Ruhr Park (RP)",
     "title": "q: 09.2 GBR/KBR",
     "description": "q: 09.2 GBR/KBR"
+  },
+  {
+    "start": "2026-11-12T16:00:00",
+    "end": "2026-11-12T20:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 01.02 F&B",
+    "description": "q: 01.02 F&B"
+  },
+  {
+    "start": "2026-11-15T10:30:00",
+    "end": "2026-11-15T14:30:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 09.1 Betriebsrat (inkl. IV)",
+    "description": "q: 09.1 Betriebsrat (inkl. IV)"
+  },
+  {
+    "start": "2026-11-16T10:00:00",
+    "end": "2026-11-16T16:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 09.1 Betriebsrat (inkl. IV)",
+    "description": "q: 09.1 Betriebsrat (inkl. IV)"
+  },
+  {
+    "start": "2026-11-17T10:00:00",
+    "end": "2026-11-17T16:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 09.1 Betriebsrat (inkl. IV)",
+    "description": "q: 09.1 Betriebsrat (inkl. IV)"
+  },
+  {
+    "start": "2026-11-18T10:00:00",
+    "end": "2026-11-18T16:00:00",
+    "location": "12: UCI Ruhr Park (RP)",
+    "title": "q: 09.1 Betriebsrat (inkl. IV)",
+    "description": "q: 09.1 Betriebsrat (inkl. IV)"
   }
 ]
